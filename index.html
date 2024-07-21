@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>학생 상담 일지</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>학생 상담 일지</h1>
+      </header>
+      <main>
+        <form id="counseling-form">
+          <div class="form-group">
+            <label for="student-name">학생 이름:</label>
+            <select id="student-name" name="student-name" required>
+              <option value="" disabled selected>학생을 선택하세요</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="counseling-date">상담 날짜:</label>
+            <input
+              type="date"
+              id="counseling-date"
+              name="counseling-date"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="counseling-notes">상담 내용:</label>
+            <textarea
+              id="counseling-notes"
+              name="counseling-notes"
+              rows="10"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit">제출</button>
+          </div>
+        </form>
+      </main>
+      <footer>
+        <p>© 2024 학생 상담 일지 시스템</p>
+      </footer>
+    </div>
+    <script src="studentList.js"></script>
+    <script src="indexDate.js"></script>
+  </body>
+</html>
