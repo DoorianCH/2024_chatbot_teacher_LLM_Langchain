@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상담</title>
+</head>
+<body>
+    <h1>상담</h1>
+    
+    <div>
+        <strong>방법:</strong>
+        <select id="method" name="method">
+            <option value="visit">방문</option>
+            <option value="tell">전화</option>
+            <option value="ex">기타</option>                  
+        </select>
+    </div>
+
+    <div>
+        <strong>상담자:</strong>
+        <label>학생</label><input class="client" name="client" type="radio" value="student" checked>
+        <label>학부모</label><input class="client" name="client" type="radio" value="parent">
+    </div> 
+   
+    <div>
+        <strong>유형:</strong>
+        <select id="category" name="category">
+            <option value="life">학교생활</option>
+            <option value="friendship">교우관계</option>
+            <option value="learning">학습</option>
+            <option value="other">기타</option>
+        </select>
+        <span id="otherInput">
+            <input type="text" id="otherText" placeholder="기타 입력" readonly>
+        </span>
+    </div>
+    
+    <div>
+        <strong>장소:</strong><input id="location" type="text" placeholder="학교">
+        <strong>날짜:</strong><input id="date" type="date">     
+    </div>
+   
+    <div>
+        <strong>상담내용:</strong><input id="contents" type="text">
+    </div> 
+    
+    <button id="saveButton">저장</button>
+
+    <!-- 상담 내역을 표시할 컨테이너 추가 -->
+    <h2>상담 내역</h2>
+    <div id="consultationList"></div>
+
+    <script type="module">
+        import { toggleOtherInput, setTodayDate } from './formController.js';
+        import { saveConsultationData, renderConsultationList } from './dataHandler.js';
+
+        document.getElementById('category').addEventListener('change', toggleOtherInput);
+        document.getElementById('saveButton').addEventListener('click', () => {
+            saveConsultationData();
+            renderConsultationList();
+        });
+        
+        setTodayDate();
+
+        // 페이지 로드 시 상담 내역 렌더링 (초기화 방지)
+        renderConsultationList();
+    </script>
+</body>
+</html>

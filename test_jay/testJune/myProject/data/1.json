@@ -1,0 +1,47 @@
+{
+  "studentName": "최준원",
+  "studentNum": "010-4599-3761",
+  "studentParentNum": "010-4741-3761",
+  "consultations": [
+    {
+      "date": "2024-08-12",
+      "method": "visit",
+      "client": "student",
+      "location": "학교",
+      "category": "life",
+      "contents": "ㄹㄹㄹ"
+    },
+    {
+      "date": "2024-08-12",
+      "method": "visit",
+      "client": "student",
+      "location": "학교",
+      "category": "life",
+      "contents": "ㄹㄷㄹㄷㄹㄷ"
+    },
+    {
+      "date": "2024-08-15",
+      "method": "visit",
+      "client": "student",
+      "location": "학교",
+      "category": "life",
+      "contents": "fdadfwaafewreawfaweggwegewaewgagewagweagewagweg4w"
+    },
+    {
+      "date": "2024-08-12",
+      "method": "visit",
+      "client": "student",
+      "location": "학교",
+      "category": "life",
+      "contents": "ㄹㅈㄷㅁㄷㅈㄻㄹㄷㅈㅁ"
+    },
+    {
+      "date": "2024-08-30",
+      "method": "visit",
+      "client": "student",
+      "location": "학교",
+      "category": "life",
+      "contents": "ㅁㄹㄷㅈㄷㄹㅈㅁㄷㅁㅎㅈㅎㄷㅁㅈㄷㅎㅈㅁㅎㄷㅁㅈㅁㅎㄷㅈㅁㄷㅎㅈㅁㄷㅎㅈㅁㅎㄷㅈ"
+    }
+  ]
+}

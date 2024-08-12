@@ -5,6 +5,16 @@ Dacon, 교사용 챗봇 서비스
 - html, css, js, python
 - ChatGPT, LLM(LangChain)
 
+# node js 설치(Terminal)
+- mkdir myProject
+- cd myProject
+- npm init -y
+- npm install express body-parser
+- npm install cors
+
+# node js 실행(Terminal)
+- node server.js
+
 # 역할
 ## 2024-08-12
     1. 최재광: 학생 상담 페이지 개발 및 디자인, 상담 내용 json 형태 저장
