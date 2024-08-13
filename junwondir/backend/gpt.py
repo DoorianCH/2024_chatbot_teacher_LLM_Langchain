@@ -23,6 +23,7 @@ class Chatbot:
             temperature=0.5,
             streaming=True,
             model_name="gpt-4o"
+            
         )
 
         #프롬프트 정의
@@ -111,7 +112,7 @@ class Chatbot:
             ]
         )
 
-        
+
         self.file_path = './1.json'
         self.data = Path(self.file_path).read_text(encoding='utf-8')
         #메모리 추가
