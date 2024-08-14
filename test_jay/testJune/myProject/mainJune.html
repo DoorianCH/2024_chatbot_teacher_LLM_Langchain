@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"> <!-- 스타일시트를 연결합니다 -->
+
     <title>상담</title>
 </head>
 <body>
-    <h1>상담</h1>
-    
+    <h1>ClassBot</h1>
+    <h3>최재광 학생 상담 페이지</h3>
+
     <div>
-        <strong>방법:</strong>
-        <select id="method" name="method">
-            <option value="visit">방문</option>
-            <option value="tell">전화</option>
-            <option value="ex">기타</option>                  
-        </select>
+        <strong>날짜:</strong>
+        <input id="date" type="date">     
     </div>
 
     <div>
@@ -22,7 +21,7 @@
         <label>학생</label><input class="client" name="client" type="radio" value="student" checked>
         <label>학부모</label><input class="client" name="client" type="radio" value="parent">
     </div> 
-   
+
     <div>
         <strong>유형:</strong>
         <select id="category" name="category">
@@ -31,19 +30,29 @@
             <option value="learning">학습</option>
             <option value="other">기타</option>
         </select>
-        <span id="otherInput">
+        <!--<span id="otherInput">
             <input type="text" id="otherText" placeholder="기타 입력" readonly>
-        </span>
+        </span>-->
     </div>
-    
+
     <div>
-        <strong>장소:</strong><input id="location" type="text" placeholder="학교">
-        <strong>날짜:</strong><input id="date" type="date">     
+        <strong>장소:</strong>
+        <input id="location" type="text" placeholder="학교">
     </div>
-   
+
     <div>
-        <strong>상담내용:</strong><input id="contents" type="text">
+        <strong>상담내용:</strong>
+        <input id="contents" type="text">
     </div> 
+    
+    <div>   
+        <strong>방법:</strong>
+        <select id="method" name="method">
+            <option value="visit">방문</option>
+            <option value="tell">전화</option>
+            <option value="ex">기타</option>                  
+        </select>
+    </div>
     
     <button id="saveButton">저장</button>
 

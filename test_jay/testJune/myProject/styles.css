@@ -1,0 +1,124 @@
+/* 기본적인 페이지 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+div {
+    margin-bottom: 15px;
+}
+
+strong {
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* 라디오 버튼과 체크박스를 inline-block으로 정렬 */
+label {
+    margin-right: 10px;
+}
+
+.client {
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+/* input 및 select 요소 스타일링 */
+input[type="text"],
+input[type="date"],
+select {
+    width: 200px; /* 선택 창 너비 조정 */
+    padding: 8px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* 추가 입력 필드 숨기기 */
+#otherInput {
+    display: inline-block;
+    margin-left: 110px;
+    width: calc(100% - 110px);
+}
+
+#otherText {
+    width: 200px; /* 선택 창 너비에 맞게 조정 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 상담 내용 칸 스타일링 */
+#contents {
+    width: calc(100% - 110px); /* 부모 div 너비에 맞게 조정 */
+    height: 100px; /* 세로 길이 조정 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* 버튼 스타일링 */
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* 상담 내역 섹션 */
+#consultationList {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+    strong {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select,
+    #otherText {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #otherInput {
+        margin-left: 0;
+    }
+
+    #contents {
+        width: 100%;
+    }
+}
