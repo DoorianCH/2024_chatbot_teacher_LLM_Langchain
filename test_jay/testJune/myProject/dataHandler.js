@@ -4,19 +4,24 @@ import { getClientValue, getCategoryValue } from './formController.js';
 import { validateInputs } from './validation.js';
 
 let studentData = {
-    studentName: "최준원",
+    studentName: "김일번",
     studentNum: "010-4599-3761",
     studentParentNum: "010-4741-3761",
     consultations: []
 };
 
-// 초기 로드 시 localStorage에서 데이터 불러오기
+// 초기화 시 데이터 불러오기
 function loadStudentData() {
     const storedData = localStorage.getItem('studentData');
     if (storedData) {
         studentData = JSON.parse(storedData);
+    } else {
+        studentData.consultations = []; // 상담 내역 초기화
     }
 }
+
+// 초기화 시 로컬 스토리지 비우기 (필요 시)
+// localStorage.removeItem('studentData');
 
 export function createJsonData() {
     const method = document.getElementById("method").value;

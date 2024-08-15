@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>ClassBot</h1>
-    <h3>최재광 학생 상담 페이지</h3>
+    <h3>김일번 학생 상담 페이지</h3>
 
     <div>
         <strong>날짜:</strong>
@@ -30,21 +30,15 @@
             <option value="learning">학습</option>
             <option value="other">기타</option>
         </select>
-        <!--<span id="otherInput">
+        <span id="otherInput">
             <input type="text" id="otherText" placeholder="기타 입력" readonly>
-        </span>-->
+        </span>
     </div>
 
     <div>
         <strong>장소:</strong>
         <input id="location" type="text" placeholder="학교">
     </div>
-
-    <div>
-        <strong>상담내용:</strong>
-        <input id="contents" type="text">
-    </div> 
-    
     <div>   
         <strong>방법:</strong>
         <select id="method" name="method">
@@ -53,6 +47,12 @@
             <option value="ex">기타</option>                  
         </select>
     </div>
+    <div>
+        <strong>상담내용:</strong>
+        <textarea id="contents"></textarea>
+    </div>
+    
+
     
     <button id="saveButton">저장</button>
 

@@ -69,7 +69,16 @@ select {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
+    line-height: 1.6; /* 줄 간격 조정 */
+    background-image: linear-gradient(to bottom, transparent 19px, #ddd 20px);
+    background-size: 100% 20px; /* 밑줄 간격 */
+    background-repeat: repeat-y;
+    white-space: pre-wrap; /* 줄바꿈 허용 */
+    overflow-wrap: break-word; /* 단어가 길 경우 자동 줄바꿈 */
+    resize: none; /* 사용자가 크기 조정 불가 */
+    overflow-y: auto; /* 내용이 많을 경우 스크롤 가능 */
 }
+
 
 /* 버튼 스타일링 */
 button {
