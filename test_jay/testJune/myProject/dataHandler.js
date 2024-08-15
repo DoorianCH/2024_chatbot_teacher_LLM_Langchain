@@ -21,7 +21,7 @@ function loadStudentData() {
 }
 
 // 초기화 시 로컬 스토리지 비우기 (필요 시)
-// localStorage.removeItem('studentData');
+//localStorage.removeItem('studentData');
 
 export function createJsonData() {
     const method = document.getElementById("method").value;
@@ -40,8 +40,8 @@ export function createJsonData() {
         contents: contents
     };
 
-    // 새로운 날짜의 상담 데이터를 추가
-    studentData.consultations.push(consultation);
+    // 새로운 날짜의 상담 데이터를 배열 맨 앞에 추가
+    studentData.consultations.unshift(consultation);
 
     // 로컬 스토리지에 저장
     localStorage.setItem('studentData', JSON.stringify(studentData));
@@ -63,7 +63,7 @@ export function saveConsultationData() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                alert("상담 데이터가 성공적으로 저장되었습니다.");
+                alert("상담 내용이 성공적으로 저장되었습니다.");
             } else {
                 alert("상담 데이터를 저장하는 중 오류가 발생했습니다.");
             }
