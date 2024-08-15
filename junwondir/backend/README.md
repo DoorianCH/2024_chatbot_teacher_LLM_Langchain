@@ -9,6 +9,7 @@
  
  pip install -r requirements.txt
 
+uvicorn main:app --reload
 
 
 ## output Json 형식
