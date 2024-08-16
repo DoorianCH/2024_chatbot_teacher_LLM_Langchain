@@ -1,5 +1,6 @@
 let socket;
 let userMessage = null; // 사용자가 입력한 메시지를 저장할 변수
+let waitingMessage=""
 // HTML 요소 선택자들을 정의
 const closeBtn = document.querySelector(".close-btn");  // 챗봇 창 닫기 버튼
 const chatbox = document.querySelector(".chatbox");  // 챗박스(대화 내용이 표시되는 영역)
@@ -12,9 +13,14 @@ let messageElement
 // WebSocket으로부터 수신한 메시지를 처리하는 함수
 const handleIncomingMessage = (data) => {
   try {
-    const parsedData = JSON.parse(data);
-    console.log(parsedData.message)
-    messageElement.innerHTML=`${parsedData.message}`
+    console.log(data)
+    if(waitingMessage==messageElement.innerHTMl){
+       messageElement.innerHTML=`${data}`
+    }
+    else{
+      messageElement.insertAdjacentHTML('beforeend', `${data}`);
+    }
+
   } catch (error) {
     console.error("Error parsing incoming message:", error);
   }
@@ -93,7 +99,7 @@ const generateResponse = (chatElement) => {
   }
 
   // 수신 대기 메시지 표시
-  messageElement.textContent = "Waiting for response...";
+  messageElement.textContent = waitingMessage;
 }
 
 // 사용자의 채팅을 처리하는 함수
