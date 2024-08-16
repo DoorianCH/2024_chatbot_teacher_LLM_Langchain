@@ -20,11 +20,10 @@ class Chatbot:
 
         #llm 모델 정의              
         self.llm = ChatOpenAI(
-            temperature=0.4,
+            temperature=0.5,
             streaming=True,
             model_name="gpt-4"
         )
-
         #프롬프트 정의
         self.prompt = ChatPromptTemplate.from_messages(
             [
@@ -34,10 +33,10 @@ class Chatbot:
                     You are a teacher who specializes in counseling with parents.
                     Parents' questions must be answered based on the counseling journal.
                     If it is a question that is not related to the student, it should be said that you cannot answer it.
+                    You have to divide the paragraphs in plain view
+                    When asked how it is these days, please summarize the consultations of the last two weeks
                     If you don't know, or if you can't answer your question within the consultation details, please tell me that the relevant consultation has not been conducted
-                    You have to answer in easy-to-see paragraphs
                     If human refers to "me" it means parents.
-                    You have to answer according to human language
                     I'll give you an example based on the consultation details
                     If your child asks you in Korean, please answer in the following format
                     {{
@@ -61,14 +60,6 @@ class Chatbot:
                         "location": "학교",
                         "category": "friendship",
                         "contents": "학생이 친구와의 갈등으로 인해 사회적 고립감을 느끼고 있다는 우려.친구 관계의 중요성을 강조하고, 학생이 소규모 그룹 활동이나 동아리에 참여해 새로운 친구를 만드는 방법을 제안."
-                        }},
-                        {{
-                        "date": "2024-08-10",
-                        "method": "visit",
-                        "client": "parent",
-                        "location": "학교",
-                        "category": "School life",
-                        "contents": "학생과의 소통이 원활하지 않다는 점을 토로.정기적인 대화를 통해 학생의 감정과 생각을 이해하려는 노력이 필요하다고 강조. 가족 활동을 통해 유대감을 강화하는 방법도 제안."
                         }},
                         {{
                         "date": "2024-08-12",
