@@ -20,10 +20,9 @@ class Chatbot:
 
         #llm 모델 정의              
         self.llm = ChatOpenAI(
-            temperature=0.5,
+            temperature=0.2,
             streaming=True,
-            model_name="gpt-4o"
-            
+            model_name="gpt-4"
         )
 
         #프롬프트 정의
@@ -33,7 +32,12 @@ class Chatbot:
                     "system",
                     """
                     You are a teacher who specializes in counseling with parents.
+                    You should never say the details of the consultation as they are. Instead, you should organize the consultation.
+                    You need to consult like a counselor
                     Parents' questions must be answered based on the counseling journal.
+                    You have to answer in the same language as the questioner.
+                    If human ask how it is these days or recently, you must summarize the consultation details of the last two weeks.
+                    When you answer, divide the paragraphs easily
                     If it is a question that is not related to the student, it should be said that you cannot answer it.
                     If you don't know, or if you can't answer your question within the consultation details, please tell me that the relevant consultation has not been conducted
                     If human refers to "me" it means parents.
@@ -45,29 +49,26 @@ class Chatbot:
                     "studentParentNum": "010-4741-3761",
                     "consultations": [
                         {{
-                        "date": "2024-08-12",
-                        "method": "tell",
+                        "date": "2024-08-13",
+                        "method": "visit",
                         "client": "parent",
                         "location": "학교",
-                        "category": "friendship",
-                        "contents": "학생이 친구와의 갈등으로 인해 사회적 고립감을 느끼고 있다는 우려.친구 관계의 중요성을 강조하고, 학생이 소규모 그룹 활동이나 동아리에 참여해 새로운 친구를 만드는 방법을 제안."
+                        "category": "School life",
+                        "contents": "집에서 아이가 학교에 가기 싫어하는 것을 느끼고 있어 학부모님이 걱정을 한다.
+                                    학생과의 면담을 진행하여 이를 해결해보겠다."
                         }},
                         {{
                         "date": "2024-08-12",
                         "method": "visit",
                         "client": "student",
                         "location": "학교",
-                        "category": "가정사",
-                        "contents": "부모님의 잦은 다툼으로 인해 가정에서의 스트레스가 심함,감정 표현의 중요성을 강조하고, 부모님과의 대화 시도 권장.감정 표현의 중요성을 강조하고, 부모님과의 대화 시도 권장."
+                        "category": "School life",
+                        "contents": "우울한 기분이 자주 들며, 친구들과의 교류가 줄어듦.정서적 지원을 받을 수 있는 방법과 전문가 상담의 필요성을 논의."
                         }},
                     ]
                     }}
-                    human: "Please let me know about the consultation between the teacher and the student on August 12th?"
-                    you:"At 2024-08-12, Choi Jun-won conducted counseling on school life at school. Choi Jun-won has been showing a depressed mood recently. That is why we conducted counseling that we need counseling with psychological counselors who can support us within the school.In addition, the student conducted counseling on family books at school.
-                    The student is concerned because he is stressed out by his parents' frequent quarrels. Therefore, we intensified our counseling that we need to try to communicate with our parents."
-                    human: "Please let me know the details of your consultation on August 5th"
-                    you: "Sorry, we didn't have any consultations on 2024-8-05.!"
-
+                    human: "How is your school life these days?"
+                    you:"You asked me about her recent school life. She recently felt depressed, so her interactions with her friends have been decreasing. And in the counseling with parents, there was a counseling that the child did not want to go to school. Therefore, we are discussing student interviews and expert help."                  
                     Let's start counseling now
                     Context:{details}
                     """,
@@ -102,33 +103,6 @@ class Chatbot:
         )
 
 
-
-        #json으로 나오도록하는 프롬프트
-        self.formatting_prompt=ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                """           
-                You are a powerful formatting algorithm.
-                You format exam questions into JSON format.
-                Responses to human questions must be in json format and must follow the following format. The key value must be a message.
-                Example Input:
-                '''
-                    Example Output:
-                {{
-                "message": "(your reply)"
-                }}
-                '''
-                your turn!
-                {context}
-                """
-                
-                )
-        ]
-    )
-        #json형식으로 나오도록하는 llm chain
-        self.formatting_chain=self.formatting_prompt|self.llm
-        self.chain={"context":self.questions_chain}|self.formatting_chain   
     
     #메모리를 context에 추가하도록함
     def load_memory(self,_):
@@ -137,11 +111,12 @@ class Chatbot:
     #이 함수만 사용하면 됨
     # 두 체인을 연결하여 질문을 처리하고 json형식으로 나오도록함
     def invoke_chain(self,question):
-        save_histroy = self.questions_chain.invoke({"question": question})
+        response = self.questions_chain.invoke({"question": question}).content
         self.memory.save_context(
             {"human": question},
-            {"You": save_histroy.content},
+            {"You": response},
         )
-        response= self.chain.invoke({"question": question}).content.replace("```json", "").replace("```", "").strip()
-        response_json=json.loads(response)
-        return response_json
+        # JSON 응답 생성
+        response_json = {"message": response}
+        
+        return response_json  # FastAPI가 자동으로 JSON으로 변환하여 클라이언트에 응답
