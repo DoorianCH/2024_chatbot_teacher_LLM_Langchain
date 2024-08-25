@@ -37,17 +37,15 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     try:
     
-        chatbot_instance = Chatbot()  # Chatbot 인스턴스 생성
+        chatbot = Chatbot()  # Chatbot 인스턴스 생성
         while True:
             # 클라이언트로부터 메시지를 수신
             data = await websocket.receive_text()
             print(f"Received message: {data}")
 
-            # LLM에 메시지 전달 및 응답 생성
-            response = chatbot_instance.invoke_chain(data)
-            print(response)
-            # 응답을 클라이언트로 전송
-            await websocket.send_json(response)
+        # 질문을 처리하고 토큰을 실시간으로 전송
+            for token in chatbot.questions_chain.stream({"question": data}):
+                await websocket.send_text(token.content)
 
     except WebSocketDisconnect:
         print("Client disconnected")

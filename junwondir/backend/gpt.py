@@ -22,9 +22,12 @@ class Chatbot:
         self.llm = ChatOpenAI(
             temperature=0.5,
             streaming=True,
+<<<<<<< HEAD
             model_name="gpt-4o"
+=======
+            model_name="gpt-4"
+>>>>>>> 6edc7d9913b57ce498241e44a5f81e0ae3d07882
         )
-
         #프롬프트 정의
         self.prompt = ChatPromptTemplate.from_messages(
             [
@@ -34,6 +37,8 @@ class Chatbot:
                     You are a teacher who specializes in counseling with parents.
                     Parents' questions must be answered based on the counseling journal.
                     If it is a question that is not related to the student, it should be said that you cannot answer it.
+                    You have to divide the paragraphs in plain view
+                    When asked how it is these days, please summarize the consultations of the last two weeks
                     If you don't know, or if you can't answer your question within the consultation details, please tell me that the relevant consultation has not been conducted
                     If human refers to "me" it means parents.
                     Please answer within 300 characters.
@@ -54,6 +59,7 @@ class Chatbot:
                                     학생과의 면담을 진행하여 이를 해결해보겠다."
                         }},
                         {{
+<<<<<<< HEAD
                         "date": "2024-07-11",
                         "method": "visit",
                         "client": "student",
@@ -62,6 +68,8 @@ class Chatbot:
                         "contents": "학생이 최근 학업에 대한 흥미를 잃고 있으며, 과제와 시험 준비에 어려움을 겪고 있다는 우려를 표명.정기적인 학습 계획 수립과 작은 목표 설정의 중요성을 강조. 필요한 경우 과외나 추가 학습 지원을 고려할 것을 제안."
                         }},
                         {{
+=======
+>>>>>>> 6edc7d9913b57ce498241e44a5f81e0ae3d07882
                         "date": "2024-08-12",
                         "method": "tell",
                         "client": "parent",
@@ -137,33 +145,6 @@ class Chatbot:
         )
 
 
-
-        #json으로 나오도록하는 프롬프트
-        self.formatting_prompt=ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                """           
-                You are a powerful formatting algorithm.
-                You format exam questions into JSON format.
-                Responses to human questions must be in json format and must follow the following format. The key value must be a message.
-                Example Input:
-                '''
-                    Example Output:
-                {{
-                "message": "(your reply)"
-                }}
-                '''
-                your turn!
-                {context}
-                """
-                
-                )
-        ]
-    )
-        #json형식으로 나오도록하는 llm chain
-        self.formatting_chain=self.formatting_prompt|self.llm
-        self.chain={"context":self.questions_chain}|self.formatting_chain   
     
     #메모리를 context에 추가하도록함
     def load_memory(self,_):
@@ -172,11 +153,12 @@ class Chatbot:
     #이 함수만 사용하면 됨
     # 두 체인을 연결하여 질문을 처리하고 json형식으로 나오도록함
     def invoke_chain(self,question):
-        save_histroy = self.questions_chain.invoke({"question": question})
+        response = self.questions_chain.invoke({"question": question}).content
         self.memory.save_context(
             {"human": question},
-            {"You": save_histroy.content},
+            {"You": response},
         )
-        response= self.chain.invoke({"question": question}).content.replace("```json", "").replace("```", "").strip()
-        response_json=json.loads(response)
-        return response_json
+        # JSON 응답 생성
+        response_json = {"message": response}
+        
+        return response_json  # FastAPI가 자동으로 JSON으로 변환하여 클라이언트에 응답

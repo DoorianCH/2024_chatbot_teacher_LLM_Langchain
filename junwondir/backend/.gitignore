@@ -148,3 +148,6 @@ files/
 .cache/
 venv
 gpt_test
+*.db
+__pycache__/
+.db
